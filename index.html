@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cash App • Payment Simulation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+            max-width: 420px;
+            margin: 0 auto;
+            background: #f8f9fa;
+            overflow-x: hidden;
+            box-shadow: 0 0 40px rgba(0,0,0,0.15);
+        }
+        
+        .screen {
+            display: none;
+            min-height: 100vh;
+        }
+        
+        .screen.active {
+            display: block;
+        }
+        
+        .green-screen {
+            background: #00c853;
+            color: white;
+        }
+        
+        .keypad-btn {
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(12px);
+            transition: all 0.1s ease;
+        }
+        
+        .keypad-btn:active {
+            background: rgba(255,255,255,0.25);
+            transform: scale(0.95);
+        }
+        
+        .status-bar {
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #111;
+        }
+        
+        .toast {
+            animation: toastIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        @keyframes toastIn {
+            from { transform: translateY(-120px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LANDING PAGE - Sophisticated Cash App Intro -->
+    <div id="landing-screen" class="screen active bg-white">
+        <div class="status-bar">
+            <div>9:41</div>
+            <div></div>
+        </div>
+        
+        <div class="px-6 pt-8">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-[#00c853] rounded-3xl flex items-center justify-center">
+                        <i class="fa-solid fa-dollar-sign text-white text-3xl"></i>
+                    </div>
+                    <div class="text-4xl font-semibold tracking-tighter">Cash App</div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <i onclick="navigateTo('money-screen')" class="fa-solid fa-magnifying-glass text-2xl text-gray-700"></i>
+                    <div class="relative">
+                        <i class="fa-solid fa-user text-2xl text-gray-700"></i>
+                        <div class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center">
+                            <span class="text-[10px] text-white font-bold">1</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16 text-center">
+                <h1 class="text-6xl font-semibold text-gray-900 tracking-tighter">Send instantly</h1>
+                <p class="mt-3 text-xl text-gray-600">Secure • Free • Real-time</p>
+            </div>
+            
+            <div class="mt-12 bg-white border border-gray-100 shadow-xl rounded-3xl p-10">
+                <div class="flex justify-center">
+                    <div>
+                        <div class="text-7xl font-semibold text-[#00c853] tracking-tighter">$51.89</div>
+                        <div class="text-center text-sm font-medium text-gray-500 mt-2">AVAILABLE BALANCE</div>
+                    </div>
+                </div>
+            </div>
+            
+            <button onclick="navigateTo('money-screen')" 
+                    class="mt-16 w-full bg-[#00c853] hover:bg-[#00b34a] text-white h-16 rounded-3xl text-2xl font-semibold shadow-xl shadow-[#00c853]/30 flex items-center justify-center gap-3">
+                <i class="fa-solid fa-paper-plane"></i>
+                MAKE A PAYMENT
+            </button>
+            
+            <div class="mt-12 flex justify-center gap-8 text-xs text-gray-400">
+                <div class="flex items-center gap-1">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Secure</span>
+                </div>
+                <div class="flex items-center gap-1">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span>Instant</span>
+                </div>
+                <div class="flex items-center gap-1">
+                    <i class="fa-solid fa-lock"></i>
+                    <span>Private</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MONEY SCREEN (Image 2) - Sophisticated version -->
+    <div id="money-screen" class="screen bg-white">
+        <div class="status-bar">
+            <div>1:58</div>
+            <div></div>
+        </div>
+        
+        <div class="px-6">
+            <div class="flex justify-between items-center">
+                <div class="text-4xl font-semibold">Money</div>
+                <div class="flex items-center gap-5">
+                    <i class="fa-solid fa-user text-2xl"></i>
+                    <div class="relative">
+                        <i class="fa-solid fa-bell text-2xl"></i>
+                        <div class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[9px] flex items-center justify-center rounded-full font-bold">1</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cash Balance -->
+            <div class="mt-8 bg-white border border-gray-100 rounded-3xl p-8 shadow-sm">
+                <div class="flex justify-between items-baseline">
+                    <div class="text-gray-500">Cash balance</div>
+                    <div class="text-xs text-gray-400 flex items-center gap-1 cursor-pointer">Account &amp; routing <i class="fa-solid fa-chevron-right text-xs"></i></div>
+                </div>
+                <div class="text-6xl font-semibold mt-2 tracking-tighter">$51.89</div>
+                
+                <div class="grid grid-cols-2 gap-4 mt-10">
+                    <button onclick="fakeAction()" 
+                            class="bg-gray-100 hover:bg-gray-200 h-14 rounded-3xl font-semibold text-lg">Add money</button>
+                    <button onclick="navigateTo('payment-screen')" 
+                            class="bg-gray-900 hover:bg-black text-white h-14 rounded-3xl font-semibold text-lg">Withdraw</button>
+                </div>
+            </div>
+            
+            <!-- Grid Cards -->
+            <div class="grid grid-cols-2 gap-4 mt-8">
+                <div class="bg-white border border-gray-100 rounded-3xl p-6">
+                    <div class="flex justify-between">
+                        <div>
+                            <div class="text-xl font-medium">Bitcoin</div>
+                            <div class="text-4xl font-semibold mt-8">$0.00</div>
+                            <div class="text-xs text-gray-500">0.00% today</div>
+                        </div>
+                        <div class="text-5xl">₿</div>
+                    </div>
+                </div>
+                
+                <div class="bg-white border border-gray-100 rounded-3xl p-6">
+                    <div class="flex justify-between">
+                        <div>
+                            <div class="text-xl font-medium">Savings</div>
+                            <div class="text-4xl font-semibold mt-8">$0.00</div>
+                            <div class="text-xs text-emerald-600">Up to 4.5% interest</div>
+                        </div>
+                        <div class="w-12 h-12 bg-emerald-500 text-white rounded-3xl flex items-center justify-center text-3xl">$</div>
+                    </div>
+                </div>
+                
+                <div class="bg-white border border-gray-100 rounded-3xl p-6">
+                    <div class="flex justify-between">
+                        <div class="text-xl font-medium">Paychecks</div>
+                        <div class="w-12 h-12 bg-emerald-500 text-white rounded-3xl flex items-center justify-center text-3xl">↓</div>
+                    </div>
+                    <div class="mt-12 text-sm">Get direct deposits early</div>
+                </div>
+                
+                <div class="bg-white border border-gray-100 rounded-3xl p-6">
+                    <div class="flex justify-between">
+                        <div class="text-xl font-medium">Stocks</div>
+                        <div class="w-12 h-12 bg-purple-600 text-white rounded-3xl flex items-center justify-center text-3xl">📈</div>
+                    </div>
+                    <div class="mt-12 text-sm">Invest with $1</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Navigation -->
+        <div class="fixed bottom-0 left-0 right-0 max-w-[420px] mx-auto bg-white border-t h-16 flex items-center justify-around text-xs">
+            <div class="flex flex-col items-center text-emerald-600">
+                <i class="fa-solid fa-wallet text-2xl"></i>
+                <span class="text-[10px] mt-1">Money</span>
+            </div>
+            <div class="flex flex-col items-center text-gray-400">
+                <i class="fa-solid fa-list text-2xl"></i>
+                <span class="text-[10px] mt-1">Activity</span>
+            </div>
+            <div class="flex flex-col items-center text-gray-400">
+                <i class="fa-solid fa-paper-plane text-2xl"></i>
+                <span class="text-[10px] mt-1">Pay</span>
+            </div>
+            <div class="flex flex-col items-center text-gray-400">
+                <i class="fa-solid fa-magnifying-glass text-2xl"></i>
+                <span class="text-[10px] mt-1">Search</span>
+            </div>
+            <div class="flex flex-col items-center text-gray-400">
+                <i class="fa-solid fa-ellipsis-h text-2xl"></i>
+                <span class="text-[10px] mt-1">More</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAYMENT SELECTOR SCREEN (Green Keypad - Image 1) -->
+    <div id="payment-screen" class="screen green-screen">
+        <div class="status-bar">
+            <div>9:41</div>
+            <div></div>
+        </div>
+        
+        <div class="px-6 pt-6">
+            <div class="flex justify-between">
+                <button onclick="navigateTo('money-screen')" class="text-4xl font-light">×</button>
+                <div class="flex items-center gap-2">
+                    <div class="bg-white/20 px-5 py-1 rounded-3xl text-sm font-medium">USD</div>
+                    <i class="fa-solid fa-chevron-down text-lg"></i>
+                </div>
+            </div>
+            
+            <div class="mt-20 text-center">
+                <div id="payment-amount-display" class="text-[92px] font-light tracking-tighter leading-none">$0</div>
+            </div>
+            
+            <!-- Keypad -->
+            <div class="mt-16 grid grid-cols-3 gap-4 text-5xl font-light text-white max-w-xs mx-auto">
+                <button onclick="addDigit(1)" class="keypad-btn aspect-square rounded-3xl flex items-center justify-center">1</button>
+                <button onclick="addDigit(2)" class="keypad-btn aspect-square rounded-3xl flex items-center justify-center">2</button>
+                <button onclick="addDigit(3)" class="keypad-btn aspect-square rounded-3xl flex items-center justify-center">3</button>
+                <button onclick="addDigit(4)" class="keypad-btn aspect-square rounded-3xl flex items-center justify-center">4</button>
+                <button onclick="addDigit(5)" class="keypad-btn aspect-square rounded-3xl flex items-center justify-center">5</button>
+                <button onclick="addDigit(6)" class="keypad-btn aspect-square rounded-3xl flex items-center justify-center">6</button>
+                <button onclick="addDigit(7)" class="keypad-btn aspect-square rounded-3xl flex items-center justify-center">7</button>
+                <button onclick="addDigit(8)" class="keypad-btn aspect-square rounded-3xl flex items-center justify-center">8</button>
+                <button onclick="addDigit(9)" class="keypad-btn aspect-square rounded-3xl flex items-center justify-center">9</button>
+                <button onclick="addDigit('.')" class="keypad-btn aspect-square rounded-3xl flex items-center justify-center text-6xl">.</button>
+                <button onclick="addDigit(0)" class="keypad-btn aspect-square rounded-3xl flex items-center justify-center">0</button>
+                <button onclick="deleteDigit()" class="keypad-btn aspect-square rounded-3xl flex items-center justify-center text-4xl">⌫</button>
+            </div>
+            
+            <div class="mt-14 flex gap-4 px-4">
+                <button onclick="navigateTo('money-screen')" 
+                        class="flex-1 h-14 bg-white/20 backdrop-blur rounded-3xl font-semibold text-lg">Request</button>
+                <button onclick="proceedToSendPage()" 
+                        class="flex-1 h-14 bg-white text-[#00c853] rounded-3xl font-semibold text-lg">Pay</button>
+            </div>
+        </div>
+        
+        <!-- Bottom Icons -->
+        <div class="fixed bottom-8 left-0 right-0 max-w-[420px] mx-auto flex justify-center gap-10 text-white text-xl">
+            <i class="fa-solid fa-camera"></i>
+            <i class="fa-solid fa-dollar-sign"></i>
+            <i class="fa-solid fa-qrcode"></i>
+            <i class="fa-solid fa-clock"></i>
+        </div>
+    </div>
+
+    <!-- SEND / CASHTAG SCREEN (Image 3) -->
+    <div id="send-screen" class="screen bg-white">
+        <div class="status-bar">
+            <div>9:41</div>
+            <div></div>
+        </div>
+        
+        <div class="px-6 pt-4">
+            <div class="flex items-center justify-between">
+                <button onclick="navigateTo('payment-screen')" class="text-4xl text-gray-400">×</button>
+                <div id="send-amount-header" class="text-3xl font-semibold">$0</div>
+                <button onclick="completePayment()" 
+                        class="bg-[#00c853] text-white px-8 py-2 rounded-3xl text-base font-semibold">Request</button>
+            </div>
+            
+            <div class="mt-8">
+                <div class="text-sm text-gray-500">To</div>
+                <input id="cashtag-input" type="text" 
+                       placeholder="Name, $Cashtag, Phone, Email" 
+                       class="w-full text-2xl mt-2 outline-none border-b pb-3">
+            </div>
+            
+            <div class="mt-10 relative">
+                <div class="flex justify-between text-sm text-gray-500">
+                    <div>For</div>
+                    <div class="text-emerald-600">Add a note</div>
+                </div>
+                <input id="note-input" type="text" placeholder="Add a note" 
+                       class="w-full text-2xl mt-2 outline-none border-b pb-3">
+                
+                <!-- Red arrow exactly like image -->
+                <div class="absolute -top-4 right-6 text-red-500 text-6xl rotate-[25deg]">➤</div>
+            </div>
+            
+            <!-- Send as -->
+            <div class="mt-12">
+                <div class="text-sm text-gray-500 mb-4">Send as</div>
+                <div class="flex gap-3">
+                    <div onclick="this.classList.toggle('bg-emerald-600');this.classList.toggle('text-white')" 
+                         class="bg-emerald-600 text-white px-10 py-3 rounded-3xl text-base font-semibold">Cash</div>
+                    <div onclick="this.classList.toggle('bg-emerald-600');this.classList.toggle('text-white')" 
+                         class="border px-10 py-3 rounded-3xl text-base font-semibold">Stock</div>
+                    <div onclick="this.classList.toggle('bg-emerald-600');this.classList.toggle('text-white')" 
+                         class="border px-10 py-3 rounded-3xl text-base font-semibold">Bitcoin</div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-sm text-gray-500">SUGGESTED</div>
+            <div class="flex items-center gap-4 mt-4">
+                <div class="w-11 h-11 bg-orange-500 rounded-3xl flex items-center justify-center text-white text-2xl font-bold">A</div>
+                <div>
+                    <div class="font-semibold">ade</div>
+                    <div class="text-sm text-gray-500">$ade</div>
+                </div>
+            </div>
+            
+            <button onclick="fakeEnableContacts()" 
+                    class="mt-16 w-full border border-gray-300 py-5 rounded-3xl text-base font-semibold">
+                Enable Contacts
+            </button>
+        </div>
+    </div>
+
+    <!-- ERROR TOAST -->
+    <div id="error-toast" onclick="this.classList.add('hidden')" 
+         class="hidden fixed top-8 left-1/2 -translate-x-1/2 bg-red-600 text-white px-6 py-4 rounded-3xl shadow-2xl flex items-center gap-3 max-w-xs toast z-[99999]">
+        <i class="fa-solid fa-triangle-exclamation text-xl"></i>
+        <div class="text-sm">
+            Cash App fees apply.<br>
+            <span class="opacity-90 text-xs">Please top up your balance to complete this payment.</span>
+        </div>
+    </div>
+
+    <script>
+        let currentAmount = "0";
+        
+        function navigateTo(screen) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screen).classList.add('active');
+        }
+        
+        function addDigit(d) {
+            if (currentAmount === "0" && d !== ".") currentAmount = "";
+            if (currentAmount.includes(".") && d === ".") return;
+            if (currentAmount.length > 7) return;
+            
+            currentAmount += d;
+            
+            const num = parseFloat(currentAmount) || 0;
+            if (num > 51.89) currentAmount = "51.89";
+            
+            document.getElementById("payment-amount-display").innerHTML = "$" + currentAmount;
+        }
+        
+        function deleteDigit() {
+            currentAmount = currentAmount.slice(0, -1);
+            if (currentAmount === "") currentAmount = "0";
+            document.getElementById("payment-amount-display").innerHTML = "$" + currentAmount;
+        }
+        
+        function proceedToSendPage() {
+            const amt = parseFloat(currentAmount) || 0;
+            if (amt <= 0) {
+                alert("Please enter an amount");
+                return;
+            }
+            document.getElementById("send-amount-header").innerHTML = "$" + amt.toFixed(2);
+            navigateTo("send-screen");
+        }
+        
+        function completePayment() {
+            const cashtag = document.getElementById("cashtag-input").value.trim();
+            if (!cashtag) {
+                alert("Please enter a recipient");
+                return;
+            }
+            showErrorToast();
+        }
+        
+        function showErrorToast() {
+            const toast = document.getElementById("error-toast");
+            toast.classList.remove("hidden");
+            setTimeout(() => {
+                toast.classList.add("hidden");
+                navigateTo("landing-screen");
+            }, 3500);
+        }
+        
+        function fakeAction() {
+            alert("Feature coming soon (demo)");
+        }
+        
+        function fakeEnableContacts() {
+            alert("Contacts enabled successfully");
+        }
+        
+        // Keyboard support
+        document.addEventListener("keydown", function(e) {
+            if (document.getElementById("payment-screen").classList.contains("active")) {
+                if (e.key >= "0" && e.key <= "9") addDigit(e.key);
+                if (e.key === ".") addDigit(".");
+                if (e.key === "Backspace") deleteDigit();
+            }
+        });
+        
+        window.onload = () => {
+            console.log("%c✅ Sophisticated Cash App simulation loaded - Clean status bar, real icons, perfect mobile sizing", "color:#00c853; font-weight:600");
+        };
+    </script>
+</body>
+</html>
