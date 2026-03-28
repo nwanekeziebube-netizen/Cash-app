@@ -67,7 +67,6 @@
 </head>
 <body>
 
-    <!-- LANDING PAGE - Sophisticated Cash App Intro -->
     <div id="landing-screen" class="screen active bg-white">
         <div class="status-bar">
             <div>9:41</div>
@@ -101,7 +100,7 @@
             <div class="mt-12 bg-white border border-gray-100 shadow-xl rounded-3xl p-10">
                 <div class="flex justify-center">
                     <div>
-                        <div id="balance-display-landing" class="text-7xl font-semibold text-[#00c853] tracking-tighter">$224.34</div>
+                        <div id="balance-display-landing" class="text-7xl font-semibold text-[#00c853] tracking-tighter">$80.45</div>
                         <div class="text-center text-sm font-medium text-gray-500 mt-2">AVAILABLE BALANCE</div>
                     </div>
                 </div>
@@ -130,7 +129,6 @@
         </div>
     </div>
 
-    <!-- MONEY SCREEN (Image 2) - Sophisticated version -->
     <div id="money-screen" class="screen bg-white">
         <div class="status-bar">
             <div>1:58</div>
@@ -149,13 +147,12 @@
                 </div>
             </div>
             
-            <!-- Cash Balance -->
             <div class="mt-8 bg-white border border-gray-100 rounded-3xl p-8 shadow-sm">
                 <div class="flex justify-between items-baseline">
                     <div class="text-gray-500">Cash balance</div>
                     <div class="text-xs text-gray-400 flex items-center gap-1 cursor-pointer">Account &amp; routing <i class="fa-solid fa-chevron-right text-xs"></i></div>
                 </div>
-                <div id="balance-display-money" class="text-6xl font-semibold mt-2 tracking-tighter">$224.34</div>
+                <div id="balance-display-money" class="text-6xl font-semibold mt-2 tracking-tighter">$80.45</div>
                 
                 <div class="grid grid-cols-2 gap-4 mt-10">
                     <button onclick="fakeAction()" 
@@ -165,7 +162,6 @@
                 </div>
             </div>
             
-            <!-- Grid Cards -->
             <div class="grid grid-cols-2 gap-4 mt-8">
                 <div class="bg-white border border-gray-100 rounded-3xl p-6">
                     <div class="flex justify-between">
@@ -207,7 +203,6 @@
             </div>
         </div>
         
-        <!-- Bottom Navigation -->
         <div class="fixed bottom-0 left-0 right-0 max-w-[420px] mx-auto bg-white border-t h-16 flex items-center justify-around text-xs">
             <div class="flex flex-col items-center text-emerald-600">
                 <i class="fa-solid fa-wallet text-2xl"></i>
@@ -232,7 +227,6 @@
         </div>
     </div>
 
-    <!-- PAYMENT SELECTOR SCREEN (Green Keypad - Image 1) -->
     <div id="payment-screen" class="screen green-screen">
         <div class="status-bar">
             <div>9:41</div>
@@ -252,7 +246,6 @@
                 <div id="payment-amount-display" class="text-[92px] font-light tracking-tighter leading-none">$0</div>
             </div>
             
-            <!-- Keypad -->
             <div class="mt-16 grid grid-cols-3 gap-4 text-5xl font-light text-white max-w-xs mx-auto">
                 <button onclick="addDigit(1)" class="keypad-btn aspect-square rounded-3xl flex items-center justify-center">1</button>
                 <button onclick="addDigit(2)" class="keypad-btn aspect-square rounded-3xl flex items-center justify-center">2</button>
@@ -276,7 +269,6 @@
             </div>
         </div>
         
-        <!-- Bottom Icons -->
         <div class="fixed bottom-8 left-0 right-0 max-w-[420px] mx-auto flex justify-center gap-10 text-white text-xl">
             <i class="fa-solid fa-camera"></i>
             <i class="fa-solid fa-dollar-sign"></i>
@@ -285,7 +277,6 @@
         </div>
     </div>
 
-    <!-- SEND / CASHTAG SCREEN (Image 3) -->
     <div id="send-screen" class="screen bg-white">
         <div class="status-bar">
             <div>9:41</div>
@@ -315,11 +306,9 @@
                 <input id="note-input" type="text" placeholder="Add a note" 
                        class="w-full text-2xl mt-2 outline-none border-b pb-3">
                 
-                <!-- Red arrow exactly like image -->
                 <div class="absolute -top-4 right-6 text-red-500 text-6xl rotate-[25deg]">➤</div>
             </div>
             
-            <!-- Send as -->
             <div class="mt-12">
                 <div class="text-sm text-gray-500 mb-4">Send as</div>
                 <div class="flex gap-3">
@@ -348,7 +337,6 @@
         </div>
     </div>
 
-    <!-- COMPLETION SCREEN - Exact match to uploaded image (dark theme) -->
     <div id="completion-screen" class="screen" style="background:#111111;color:#fff;">
         <div class="status-bar" style="background:#111111;color:#ccc;">
             <div>9:41</div>
@@ -356,17 +344,14 @@
         </div>
         
         <div class="px-6 pt-8 flex flex-col" style="min-height:calc(100vh - 44px)">
-            <!-- Payment to header -->
             <div id="completion-payment-to" class="text-center text-white/80 text-lg font-medium mb-8">Payment to $cashtag</div>
             
-            <!-- Large amount (exact style from image) -->
             <div class="flex-1 flex flex-col items-center justify-center text-center">
-                <div id="completion-amount" class="text-[82px] leading-none font-light tracking-[-2px] text-gray-200 mb-3">$109.34</div>
+                <div id="completion-amount" class="text-[82px] leading-none font-light tracking-[-2px] text-gray-200 mb-3">$80.45</div>
                 <div id="completion-for" class="text-2xl text-white mb-1">For rent</div>
                 <div id="completion-time" class="text-white/70 text-lg">Today at 1:55 PM</div>
             </div>
             
-            <!-- Buttons (exact pill style from image) -->
             <div class="mt-auto mb-10">
                 <button onclick="completeTransaction()" 
                         class="w-full bg-[#00c853] hover:bg-[#00b34a] text-white h-14 rounded-full text-2xl font-semibold flex items-center justify-center gap-3 shadow-xl">
@@ -380,22 +365,10 @@
                 </button>
             </div>
             
-            <!-- Home indicator (exact from image) -->
             <div class="h-1 w-12 bg-white/30 mx-auto rounded-full mb-8"></div>
         </div>
     </div>
 
-    <!-- ERROR TOAST (kept unchanged) -->
-    <div id="error-toast" onclick="this.classList.add('hidden')" 
-         class="hidden fixed top-8 left-1/2 -translate-x-1/2 bg-red-600 text-white px-6 py-4 rounded-3xl shadow-2xl flex items-center gap-3 max-w-xs toast z-[99999]">
-        <i class="fa-solid fa-triangle-exclamation text-xl"></i>
-        <div class="text-sm">
-            Cash App fees apply.<br>
-            <span class="opacity-90 text-xs">Please top up your balance to complete this payment.</span>
-        </div>
-    </div>
-
-    <!-- SENDING SPINNER -->
     <div id="sending-spinner" class="hidden fixed inset-0 bg-black/90 flex items-center justify-center z-[99999]">
         <div class="text-center max-w-[260px]">
             <i class="fa-solid fa-spinner fa-spin text-6xl text-[#00c853] mb-8"></i>
@@ -406,7 +379,10 @@
 
     <script>
         let currentAmount = "0";
-        let balance = 109.34;
+        // Initialize balance from localStorage, default to 80.45 if it doesn't exist
+        let savedBalance = localStorage.getItem('cashapp_balance');
+        let balance = savedBalance !== null ? parseFloat(savedBalance) : 80.45;
+        
         let paidAmount = 0;
         let recipientCashtag = "";
         let paymentNote = "";
@@ -432,7 +408,8 @@
             currentAmount += d;
             
             const num = parseFloat(currentAmount) || 0;
-            if (num > 109.34) currentAmount = "109.34";
+            // Dynamically cap the amount at the user's available balance
+            if (num > balance) currentAmount = balance.toFixed(2);
             
             document.getElementById("payment-amount-display").innerHTML = "$" + currentAmount;
         }
@@ -460,12 +437,10 @@
                 return;
             }
             
-            // Store payment details for completion screen
             paidAmount = parseFloat(currentAmount) || 0;
             recipientCashtag = cashtag;
             paymentNote = document.getElementById("note-input").value.trim() || "For rent";
             
-            // Show spinner
             showSendingSpinner();
         }
         
@@ -476,7 +451,6 @@
             const spinner = document.getElementById("sending-spinner");
             spinner.classList.remove("hidden");
             
-            // Simulate sending (2.5 seconds)
             setTimeout(() => {
                 spinner.classList.add("hidden");
                 showCompletionScreen();
@@ -484,7 +458,6 @@
         }
         
         function showCompletionScreen() {
-            // Set dynamic content to exactly match uploaded image layout
             document.getElementById("completion-payment-to").innerHTML = 
                 `Payment to ${recipientCashtag.startsWith('$') ? recipientCashtag : '$' + recipientCashtag}`;
             
@@ -493,7 +466,6 @@
             
             document.getElementById("completion-for").innerHTML = paymentNote;
             
-            // Dynamic time (Today at X:XX PM/AM)
             const now = new Date();
             let hours = now.getHours();
             const minutes = now.getMinutes().toString().padStart(2, '0');
@@ -506,16 +478,17 @@
         }
         
         function completeTransaction() {
-            // Deduct the paid amount from balance
+            // Deduct the paid amount and save to localStorage
             balance = Math.max(0, balance - paidAmount);
+            localStorage.setItem('cashapp_balance', balance.toFixed(2));
+            
             updateBalances();
             
-            // Reset for next payment
             currentAmount = "0";
+            document.getElementById("payment-amount-display").innerHTML = "$0";
             document.getElementById("cashtag-input").value = "";
             document.getElementById("note-input").value = "";
             
-            // Return to homepage (landing screen) with updated balance
             navigateTo("landing-screen");
         }
         
@@ -536,14 +509,18 @@
         }
         
         function fakeAction() {
-            alert("Feature coming soon (demo)");
+            // Reset balance functionality for testing
+            if (confirm("Reset balance to $80.45?")) {
+                balance = 80.45;
+                localStorage.setItem('cashapp_balance', balance.toFixed(2));
+                updateBalances();
+            }
         }
         
         function fakeEnableContacts() {
             alert("Contacts enabled successfully");
         }
         
-        // Keyboard support
         document.addEventListener("keydown", function(e) {
             if (document.getElementById("payment-screen").classList.contains("active")) {
                 if (e.key >= "0" && e.key <= "9") addDigit(e.key);
@@ -554,8 +531,8 @@
         
         window.onload = () => {
             updateBalances();
-            console.log("%c✅ Sophisticated Cash App simulation loaded - Clean status bar, real icons, perfect mobile sizing", "color:#00c853; font-weight:600");
-            console.log("%c💸 Updated balance: $109.34 | Payment flow now shows spinner → exact receipt screen → Web Receipt saves image", "color:#00c853; font-weight:600");
+            console.log("%c✅ Sophisticated Cash App simulation loaded.", "color:#00c853; font-weight:600");
+            console.log("%c💸 LocalStorage active. Balance persists across reloads.", "color:#00c853; font-weight:600");
         };
     </script>
 </body>
