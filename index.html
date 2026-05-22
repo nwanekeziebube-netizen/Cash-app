@@ -2,541 +2,507 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Cash App • Payment Simulation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arkansas Premier Investments | Real Estate</title>
+    <!-- Tailwind CSS for Professional Styling -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        
-        body {
-            font-family: 'Inter', system_ui, sans-serif;
-            max-width: 420px;
-            margin: 0 auto;
-            background: #000; /* Dark background to blend with status/nav bars */
-            overflow-x: hidden;
-            box-shadow: 0 0 40px rgba(0,0,0,0.15);
-        }
-        
-        .screen {
-            display: none;
-            min-height: 100vh;
-            background: #fff;
-        }
-        
-        .screen.active {
-            display: block;
-        }
-        
-        .green-screen {
-            background: #00c853;
-            color: white;
-        }
-        
-        .keypad-btn {
-            background: rgba(255,255,255,0.12);
-            backdrop-filter: blur(12px);
-            transition: all 0.1s ease;
-        }
-        
-        .keypad-btn:active {
-            background: rgba(255,255,255,0.25);
-            transform: scale(0.95);
-        }
-        
-        .status-bar {
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 24px;
-            font-size: 13px;
-            font-weight: 500;
-            color: #111;
-        }
-        
-        .toast {
-            animation: toastIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        
-        @keyframes toastIn {
-            from { transform: translateY(-120px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-    </style>
-</head>
-<body>
-
-    <div id="landing-screen" class="screen active" style="background: black;">
-        <div class="h-screen w-full flex flex-col">
-            
-            <div class="h-[48px] bg-black text-white flex justify-between items-center px-6 text-[15px] font-semibold pt-1">
-                <div>5:39</div>
-                <div class="flex items-center gap-2 tracking-tight">
-                    <i class="fa-solid fa-signal text-[11px]"></i>
-                    <span class="text-[11px] font-bold">LTE</span>
-                    <div class="bg-gray-300 text-black px-[4px] py-[1px] rounded-[4px] text-[10px] font-bold">24</div>
-                </div>
-            </div>
-
-            <div class="flex-1 bg-[#00D632] relative flex flex-col">
-                
-                <div class="bg-black text-[#00D632] w-[54px] h-[76px] absolute top-0 left-4 rounded-b-[24px] flex items-end justify-center pb-4 text-[32px] font-bold z-20 shadow-md">
-                    $
-                </div>
-                
-                <div class="flex justify-end items-center px-4 pt-4 relative z-10 gap-2">
-                    <button class="bg-white text-black pl-5 pr-4 py-[10px] rounded-full font-semibold text-[14px] flex items-center gap-1 shadow-sm" onclick="navigateTo('money-screen')">
-                        Sign up <i class="fa-solid fa-arrow-right text-[12px] ml-1"></i>
-                    </button>
-                    <button class="bg-black text-white w-[42px] h-[42px] rounded-full flex flex-col items-center justify-center gap-[4px] shadow-sm" onclick="navigateTo('money-screen')">
-                        <div class="w-4 h-[1.5px] bg-white"></div>
-                        <div class="w-4 h-[1.5px] bg-white"></div>
-                    </button>
-                </div>
-
-                <div class="px-5 mt-[75px] z-10">
-                    <h1 class="text-[50px] leading-[1.05] font-medium text-black tracking-[-0.04em]">
-                        The way money<br>should work
-                    </h1>
-                    <p class="mt-8 text-[16px] leading-[1.5] text-[#111] font-medium tracking-tight">
-                        From getting paid to growing what you've got,<br>
-                        Cash App makes managing your money<br>
-                        effortless and instant—without all the fees.
-                    </p>
-                </div>
-
-                <div class="absolute bottom-6 left-4 right-4 z-10">
-                    <button class="w-full bg-black hover:bg-[#111] text-white h-[60px] rounded-[30px] px-8 flex items-center justify-between font-medium text-[15px] shadow-lg transition-colors" onclick="navigateTo('money-screen')">
-                        Download Cash App
-                        <i class="fa-solid fa-arrow-right text-lg"></i>
-                    </button>
-                </div>
-            </div>
-
-            <div class="h-[90px] bg-black flex items-start pt-3 justify-between px-4">
-                <div class="w-[42px] h-[42px] rounded-full bg-[#1c1c1e] flex items-center justify-center text-white cursor-pointer hover:bg-[#2c2c2e]">
-                    <i class="fa-solid fa-chevron-left text-[15px]"></i>
-                </div>
-                
-                <div class="flex-1 mx-3 h-[42px] bg-[#1c1c1e] rounded-xl flex items-center justify-between px-4 hover:bg-[#2c2c2e] cursor-pointer" onclick="navigateTo('money-screen')">
-                    <i class="fa-regular fa-window-maximize text-white/90 text-sm"></i>
-                    <span class="text-white text-[14px] font-medium">cash.app</span>
-                    <i class="fa-solid fa-rotate-right text-white/90 text-[13px]"></i>
-                </div>
-                
-                <div class="w-[42px] h-[42px] rounded-full bg-[#1c1c1e] flex items-center justify-center text-white cursor-pointer hover:bg-[#2c2c2e]">
-                    <i class="fa-solid fa-ellipsis text-[15px]"></i>
-                </div>
-            </div>
-            
-        </div>
-    </div>
-
-    <div id="money-screen" class="screen bg-white">
-        <div class="status-bar">
-            <div>1:58</div>
-            <div></div>
-        </div>
-        
-        <div class="px-6">
-            <div class="flex justify-between items-center">
-                <div class="text-4xl font-semibold">Money</div>
-                <div class="flex items-center gap-5">
-                    <i class="fa-solid fa-user text-2xl"></i>
-                    <div class="relative">
-                        <i class="fa-solid fa-bell text-2xl"></i>
-                        <div class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[9px] flex items-center justify-center rounded-full font-bold">1</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="mt-8 bg-white border border-gray-100 rounded-3xl p-8 shadow-sm">
-                <div class="flex justify-between items-baseline">
-                    <div class="text-gray-500">Cash balance</div>
-                    <div class="text-xs text-gray-400 flex items-center gap-1 cursor-pointer">Account &amp; routing <i class="fa-solid fa-chevron-right text-xs"></i></div>
-                </div>
-                <div id="balance-display-money" class="text-6xl font-semibold mt-2 tracking-tighter">$145.45</div>
-                
-                <div class="grid grid-cols-2 gap-4 mt-10">
-                    <button onclick="fakeAction()" 
-                            class="bg-gray-100 hover:bg-gray-200 h-14 rounded-3xl font-semibold text-lg">Add money</button>
-                    <button onclick="navigateTo('payment-screen')" 
-                            class="bg-gray-900 hover:bg-black text-white h-14 rounded-3xl font-semibold text-lg">Withdraw</button>
-                </div>
-            </div>
-            
-            <div class="grid grid-cols-2 gap-4 mt-8">
-                <div class="bg-white border border-gray-100 rounded-3xl p-6">
-                    <div class="flex justify-between">
-                        <div>
-                            <div class="text-xl font-medium">Bitcoin</div>
-                            <div class="text-4xl font-semibold mt-8">$0.00</div>
-                            <div class="text-xs text-gray-500">0.00% today</div>
-                        </div>
-                        <div class="text-5xl">₿</div>
-                    </div>
-                </div>
-                
-                <div class="bg-white border border-gray-100 rounded-3xl p-6">
-                    <div class="flex justify-between">
-                        <div>
-                            <div class="text-xl font-medium">Savings</div>
-                            <div class="text-4xl font-semibold mt-8">$0.00</div>
-                            <div class="text-xs text-emerald-600">Up to 4.5% interest</div>
-                        </div>
-                        <div class="w-12 h-12 bg-emerald-500 text-white rounded-3xl flex items-center justify-center text-3xl">$</div>
-                    </div>
-                </div>
-                
-                <div class="bg-white border border-gray-100 rounded-3xl p-6">
-                    <div class="flex justify-between">
-                        <div class="text-xl font-medium">Paychecks</div>
-                        <div class="w-12 h-12 bg-emerald-500 text-white rounded-3xl flex items-center justify-center text-3xl">↓</div>
-                    </div>
-                    <div class="mt-12 text-sm">Get direct deposits early</div>
-                </div>
-                
-                <div class="bg-white border border-gray-100 rounded-3xl p-6">
-                    <div class="flex justify-between">
-                        <div class="text-xl font-medium">Stocks</div>
-                        <div class="w-12 h-12 bg-purple-600 text-white rounded-3xl flex items-center justify-center text-3xl">📈</div>
-                    </div>
-                    <div class="mt-12 text-sm">Invest with $1</div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="fixed bottom-0 left-0 right-0 max-w-[420px] mx-auto bg-white border-t h-16 flex items-center justify-around text-xs">
-            <div class="flex flex-col items-center text-emerald-600 cursor-pointer" onclick="navigateTo('money-screen')">
-                <i class="fa-solid fa-wallet text-2xl"></i>
-                <span class="text-[10px] mt-1">Money</span>
-            </div>
-            <div class="flex flex-col items-center text-gray-400">
-                <i class="fa-solid fa-list text-2xl"></i>
-                <span class="text-[10px] mt-1">Activity</span>
-            </div>
-            <div class="flex flex-col items-center text-gray-400 cursor-pointer" onclick="navigateTo('payment-screen')">
-                <i class="fa-solid fa-paper-plane text-2xl"></i>
-                <span class="text-[10px] mt-1">Pay</span>
-            </div>
-            <div class="flex flex-col items-center text-gray-400">
-                <i class="fa-solid fa-magnifying-glass text-2xl"></i>
-                <span class="text-[10px] mt-1">Search</span>
-            </div>
-            <div class="flex flex-col items-center text-gray-400">
-                <i class="fa-solid fa-ellipsis-h text-2xl"></i>
-                <span class="text-[10px] mt-1">More</span>
-            </div>
-        </div>
-    </div>
-
-    <div id="payment-screen" class="screen green-screen">
-        <div class="status-bar">
-            <div>9:41</div>
-            <div></div>
-        </div>
-        
-        <div class="px-6 pt-6">
-            <div class="flex justify-between">
-                <button onclick="navigateTo('money-screen')" class="text-4xl font-light">×</button>
-                <div class="flex items-center gap-2">
-                    <div class="bg-white/20 px-5 py-1 rounded-3xl text-sm font-medium">USD</div>
-                    <i class="fa-solid fa-chevron-down text-lg"></i>
-                </div>
-            </div>
-            
-            <div class="mt-20 text-center">
-                <div id="payment-amount-display" class="text-[92px] font-light tracking-tighter leading-none">$0</div>
-            </div>
-            
-            <div class="mt-16 grid grid-cols-3 gap-4 text-5xl font-light text-white max-w-xs mx-auto">
-                <button onclick="addDigit(1)" class="keypad-btn aspect-square rounded-3xl flex items-center justify-center">1</button>
-                <button onclick="addDigit(2)" class="keypad-btn aspect-square rounded-3xl flex items-center justify-center">2</button>
-                <button onclick="addDigit(3)" class="keypad-btn aspect-square rounded-3xl flex items-center justify-center">3</button>
-                <button onclick="addDigit(4)" class="keypad-btn aspect-square rounded-3xl flex items-center justify-center">4</button>
-                <button onclick="addDigit(5)" class="keypad-btn aspect-square rounded-3xl flex items-center justify-center">5</button>
-                <button onclick="addDigit(6)" class="keypad-btn aspect-square rounded-3xl flex items-center justify-center">6</button>
-                <button onclick="addDigit(7)" class="keypad-btn aspect-square rounded-3xl flex items-center justify-center">7</button>
-                <button onclick="addDigit(8)" class="keypad-btn aspect-square rounded-3xl flex items-center justify-center">8</button>
-                <button onclick="addDigit(9)" class="keypad-btn aspect-square rounded-3xl flex items-center justify-center">9</button>
-                <button onclick="addDigit('.')" class="keypad-btn aspect-square rounded-3xl flex items-center justify-center text-6xl">.</button>
-                <button onclick="addDigit(0)" class="keypad-btn aspect-square rounded-3xl flex items-center justify-center">0</button>
-                <button onclick="deleteDigit()" class="keypad-btn aspect-square rounded-3xl flex items-center justify-center text-4xl">⌫</button>
-            </div>
-            
-            <div class="mt-14 flex gap-4 px-4">
-                <button onclick="navigateTo('money-screen')" 
-                        class="flex-1 h-14 bg-white/20 backdrop-blur rounded-3xl font-semibold text-lg">Request</button>
-                <button onclick="proceedToSendPage()" 
-                        class="flex-1 h-14 bg-white text-[#00c853] rounded-3xl font-semibold text-lg">Pay</button>
-            </div>
-        </div>
-        
-        <div class="fixed bottom-8 left-0 right-0 max-w-[420px] mx-auto flex justify-center gap-10 text-white text-xl">
-            <i class="fa-solid fa-camera"></i>
-            <i class="fa-solid fa-dollar-sign"></i>
-            <i class="fa-solid fa-qrcode"></i>
-            <i class="fa-solid fa-clock"></i>
-        </div>
-    </div>
-
-    <div id="send-screen" class="screen bg-white">
-        <div class="status-bar">
-            <div>9:41</div>
-            <div></div>
-        </div>
-        
-        <div class="px-6 pt-4">
-            <div class="flex items-center justify-between">
-                <button onclick="navigateTo('payment-screen')" class="text-4xl text-gray-400">×</button>
-                <div id="send-amount-header" class="text-3xl font-semibold">$0</div>
-                <button onclick="completePayment()" 
-                        class="bg-[#00c853] text-white px-8 py-2 rounded-3xl text-base font-semibold">Request</button>
-            </div>
-            
-            <div class="mt-8">
-                <div class="text-sm text-gray-500">To</div>
-                <input id="cashtag-input" type="text" 
-                       placeholder="Name, $Cashtag, Phone, Email" 
-                       class="w-full text-2xl mt-2 outline-none border-b pb-3">
-            </div>
-            
-            <div class="mt-10 relative">
-                <div class="flex justify-between text-sm text-gray-500">
-                    <div>For</div>
-                    <div class="text-emerald-600">Add a note</div>
-                </div>
-                <input id="note-input" type="text" placeholder="Add a note" 
-                       class="w-full text-2xl mt-2 outline-none border-b pb-3">
-                
-                <div class="absolute -top-4 right-6 text-red-500 text-6xl rotate-[25deg]">➤</div>
-            </div>
-            
-            <div class="mt-12">
-                <div class="text-sm text-gray-500 mb-4">Send as</div>
-                <div class="flex gap-3">
-                    <div onclick="this.classList.toggle('bg-emerald-600');this.classList.toggle('text-white')" 
-                         class="bg-emerald-600 text-white px-10 py-3 rounded-3xl text-base font-semibold">Cash</div>
-                    <div onclick="this.classList.toggle('bg-emerald-600');this.classList.toggle('text-white')" 
-                         class="border px-10 py-3 rounded-3xl text-base font-semibold">Stock</div>
-                    <div onclick="this.classList.toggle('bg-emerald-600');this.classList.toggle('text-white')" 
-                         class="border px-10 py-3 rounded-3xl text-base font-semibold">Bitcoin</div>
-                </div>
-            </div>
-            
-            <div class="mt-12 text-sm text-gray-500">SUGGESTED</div>
-            <div class="flex items-center gap-4 mt-4">
-                <div class="w-11 h-11 bg-orange-500 rounded-3xl flex items-center justify-center text-white text-2xl font-bold">A</div>
-                <div>
-                    <div class="font-semibold">ade</div>
-                    <div class="text-sm text-gray-500">$ade</div>
-                </div>
-            </div>
-            
-            <button onclick="fakeEnableContacts()" 
-                    class="mt-16 w-full border border-gray-300 py-5 rounded-3xl text-base font-semibold">
-                Enable Contacts
-            </button>
-        </div>
-    </div>
-
-    <div id="completion-screen" class="screen" style="background:#111111;color:#fff;">
-        <div class="status-bar" style="background:#111111;color:#ccc;">
-            <div>9:41</div>
-            <div></div>
-        </div>
-        
-        <div class="px-6 pt-8 flex flex-col" style="min-height:calc(100vh - 44px)">
-            <div id="completion-payment-to" class="text-center text-white/80 text-lg font-medium mb-8">Payment to $cashtag</div>
-            
-            <div class="flex-1 flex flex-col items-center justify-center text-center">
-                <div id="completion-amount" class="text-[82px] leading-none font-light tracking-[-2px] text-gray-200 mb-3">$80.45</div>
-                <div id="completion-for" class="text-2xl text-white mb-1">For rent</div>
-                <div id="completion-time" class="text-white/70 text-lg">Today at 1:55 PM</div>
-            </div>
-            
-            <div class="mt-auto mb-10">
-                <button onclick="completeTransaction()" 
-                        class="w-full bg-[#00c853] hover:bg-[#00b34a] text-white h-14 rounded-full text-2xl font-semibold flex items-center justify-center gap-3 shadow-xl">
-                    <i class="fa-solid fa-check"></i>
-                    Completed
-                </button>
-                
-                <button onclick="downloadWebReceipt()" 
-                        class="w-full mt-4 border border-white/40 text-white h-14 rounded-full text-2xl font-semibold flex items-center justify-center">
-                    Web Receipt
-                </button>
-            </div>
-            
-            <div class="h-1 w-12 bg-white/30 mx-auto rounded-full mb-8"></div>
-        </div>
-    </div>
-
-    <div id="sending-spinner" class="hidden fixed inset-0 bg-black/90 flex items-center justify-center z-[99999]">
-        <div class="text-center max-w-[260px]">
-            <i class="fa-solid fa-spinner fa-spin text-6xl text-[#00c853] mb-8"></i>
-            <div class="text-white text-xl font-medium">Sending to</div>
-            <div id="spinner-cashtag-display" class="text-white text-3xl font-semibold mt-2"></div>
-        </div>
-    </div>
-
+    <!-- FontAwesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script>
-        let currentAmount = "0";
-        // Initialize balance from localStorage, default to 80.45 if it doesn't exist
-        let savedBalance = localStorage.getItem('cashapp_balance');
-        let balance = savedBalance !== null ? parseFloat(savedBalance) : 80.45;
-        
-        let paidAmount = 0;
-        let recipientCashtag = "";
-        let paymentNote = "";
-        
-        function navigateTo(screen) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById(screen).classList.add('active');
-        }
-        
-        function updateBalances() {
-            const formatted = '$' + balance.toFixed(2);
-            // Notice: landing element ID was removed during exact replica match, keeping this safe
-            const moneyEl = document.getElementById('balance-display-money');
-            if (moneyEl) moneyEl.innerHTML = formatted;
-        }
-        
-        function addDigit(d) {
-            if (currentAmount === "0" && d !== ".") currentAmount = "";
-            if (currentAmount.includes(".") && d === ".") return;
-            if (currentAmount.length > 7) return;
-            
-            currentAmount += d;
-            
-            const num = parseFloat(currentAmount) || 0;
-            // Dynamically cap the amount at the user's available balance
-            if (num > balance) currentAmount = balance.toFixed(2);
-            
-            document.getElementById("payment-amount-display").innerHTML = "$" + currentAmount;
-        }
-        
-        function deleteDigit() {
-            currentAmount = currentAmount.slice(0, -1);
-            if (currentAmount === "") currentAmount = "0";
-            document.getElementById("payment-amount-display").innerHTML = "$" + currentAmount;
-        }
-        
-        function proceedToSendPage() {
-            const amt = parseFloat(currentAmount) || 0;
-            if (amt <= 0) {
-                alert("Please enter an amount");
-                return;
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        corporate: {
+                            900: '#0f172a',
+                            800: '#1e293b',
+                            600: '#475569',
+                            gold: '#c2a672'
+                        },
+                        backend: {
+                            900: '#0a0a0a',
+                            800: '#171717',
+                            700: '#262626'
+                        }
+                    }
+                }
             }
-            document.getElementById("send-amount-header").innerHTML = "$" + amt.toFixed(2);
-            navigateTo("send-screen");
         }
-        
-        function completePayment() {
-            const cashtag = document.getElementById("cashtag-input").value.trim();
-            if (!cashtag) {
-                alert("Please enter a recipient");
-                return;
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased selection:bg-corporate-gold selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20">
+                <div class="flex items-center">
+                    <i class="fas fa-building text-corporate-gold text-3xl mr-3"></i>
+                    <div>
+                        <h1 class="text-2xl font-bold text-corporate-900 tracking-tight">API<span class="text-gray-400 font-light"> | Arkansas</span></h1>
+                        <p class="text-xs text-corporate-600 uppercase tracking-widest font-semibold">Premier Investments</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-8 hidden md:flex">
+                    <a href="#portfolio" class="text-sm font-medium text-gray-500 hover:text-corporate-gold transition">Portfolio</a>
+                    <a href="#strategy" class="text-sm font-medium text-gray-500 hover:text-corporate-gold transition">Our Strategy</a>
+                    <a href="#contact" class="text-sm font-medium text-gray-500 hover:text-corporate-gold transition">Inquiries</a>
+                    <a href="#backend" class="text-sm font-medium text-red-500 hover:text-red-700 transition"><i class="fas fa-server mr-1"></i> Admin</a>
+                    <a href="#" class="bg-corporate-900 text-white px-6 py-2.5 rounded text-sm font-semibold hover:bg-corporate-800 transition shadow-md">Client Login</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="bg-corporate-900 text-white py-32 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-corporate-900/90"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <span class="text-corporate-gold font-bold tracking-widest uppercase text-sm mb-4 block">Private Wealth Management</span>
+            <h2 class="text-5xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight">Exclusive Arkansas <br> Real Estate Portfolios</h2>
+            <p class="text-xl text-gray-300 max-w-2xl mx-auto mb-10 font-light">Secure, high-yield commercial and residential assets verified exclusively for our private investor network.</p>
+            <button class="bg-corporate-gold hover:bg-yellow-600 text-white px-8 py-3.5 rounded font-bold transition shadow-lg text-lg">View Active Ledger</button>
+        </div>
+    </header>
+
+    <!-- Property Grid Section -->
+    <main id="portfolio" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div class="flex justify-between items-end mb-12 border-b border-gray-200 pb-6">
+            <div>
+                <h3 class="text-3xl font-bold text-corporate-900">Current Listings & Ledgers</h3>
+                <p class="text-gray-500 mt-2">Verified properties available for immediate review.</p>
+            </div>
+            <div class="hidden sm:block text-sm text-gray-500 font-medium">
+                <i class="fas fa-shield-alt text-green-600 mr-1"></i> SSL Secured
+            </div>
+        </div>
+
+        <div id="property-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Properties injected via JS -->
+        </div>
+    </main>
+
+    <!-- Investment Strategy Section (Added detail) -->
+    <section id="strategy" class="bg-white py-20 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-corporate-900 mb-4">Our Acquisition Strategy</h2>
+                <p class="text-gray-600 max-w-3xl mx-auto">We leverage proprietary market data to identify undervalued assets in high-growth Arkansas corridors, ensuring robust capital appreciation and steady dividend yields for our partners.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div class="bg-gray-50 p-8 rounded-xl border border-gray-100 hover:shadow-lg transition">
+                    <div class="w-14 h-14 bg-corporate-900 text-corporate-gold rounded-lg flex items-center justify-center text-2xl mb-6 shadow-md">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-corporate-900 mb-3">Market Arbitrage</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">Identifying off-market opportunities in NWA and Central Arkansas before broad market syndication.</p>
+                </div>
+                <div class="bg-gray-50 p-8 rounded-xl border border-gray-100 hover:shadow-lg transition">
+                    <div class="w-14 h-14 bg-corporate-900 text-corporate-gold rounded-lg flex items-center justify-center text-2xl mb-6 shadow-md">
+                        <i class="fas fa-hard-hat"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-corporate-900 mb-3">Value-Add Execution</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">Strategic capital improvements managed by our in-house development team to force rapid appreciation.</p>
+                </div>
+                <div class="bg-gray-50 p-8 rounded-xl border border-gray-100 hover:shadow-lg transition">
+                    <div class="w-14 h-14 bg-corporate-900 text-corporate-gold rounded-lg flex items-center justify-center text-2xl mb-6 shadow-md">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-corporate-900 mb-3">Rigorous Underwriting</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">Conservative financial modeling ensuring downside protection regardless of macro-economic shifts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Secure Contact Section (Added detail) -->
+    <section id="contact" class="bg-corporate-900 py-20 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row gap-16">
+            <div class="md:w-1/2">
+                <h2 class="text-3xl font-bold mb-6">Request Private Allocation</h2>
+                <p class="text-gray-300 mb-8 font-light">Access to our detailed investor ledgers and proprietary walkthroughs is restricted. Submit your credentials for clearance review.</p>
+                
+                <div class="space-y-6">
+                    <div class="flex items-start">
+                        <i class="fas fa-map-marker-alt text-corporate-gold mt-1.5 text-xl w-8"></i>
+                        <div>
+                            <h5 class="font-bold">Corporate Headquarters</h5>
+                            <p class="text-gray-400 text-sm">100 Main St, Suite 400<br>Little Rock, AR 72201</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-phone-alt text-corporate-gold mt-1.5 text-xl w-8"></i>
+                        <div>
+                            <h5 class="font-bold">Direct Line</h5>
+                            <p class="text-gray-400 text-sm">+1 (501) 555-0198</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="md:w-1/2 bg-white rounded-xl p-8 text-gray-800 shadow-2xl">
+                <form class="space-y-5">
+                    <div class="grid grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">First Name</label>
+                            <input type="text" class="w-full border border-gray-300 rounded px-4 py-2.5 focus:ring-2 focus:ring-corporate-900 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Last Name</label>
+                            <input type="text" class="w-full border border-gray-300 rounded px-4 py-2.5 focus:ring-2 focus:ring-corporate-900 focus:outline-none">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Corporate Email</label>
+                        <input type="email" class="w-full border border-gray-300 rounded px-4 py-2.5 focus:ring-2 focus:ring-corporate-900 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Investment Tier</label>
+                        <select class="w-full border border-gray-300 rounded px-4 py-2.5 focus:ring-2 focus:ring-corporate-900 focus:outline-none">
+                            <option>$100k - $500k</option>
+                            <option>$500k - $1M</option>
+                            <option>$1M+</option>
+                        </select>
+                    </div>
+                    <button type="button" class="w-full bg-corporate-900 hover:bg-corporate-800 text-white font-bold py-3 px-4 rounded transition mt-4">
+                        Submit Credentials for Review
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Footer -->
+    <footer class="bg-gray-100 border-t border-gray-200 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+            &copy; 2026 Arkansas Premier Investments. All rights reserved. <br>
+            Confidential investor data is strictly protected under NDA frameworks.
+        </div>
+    </footer>
+
+    <!-- ========================================== -->
+    <!-- SIMULATED BACKEND / ADMIN DASHBOARD APPENDED -->
+    <!-- ========================================== -->
+    <section id="backend" class="bg-backend-900 text-gray-300 font-mono text-sm border-t-4 border-red-600 pb-20">
+        <div class="bg-black py-3 px-6 border-b border-backend-700 flex justify-between items-center shadow-lg">
+            <div class="flex items-center text-red-500 font-bold tracking-widest uppercase">
+                <i class="fas fa-user-shield mr-3 text-lg"></i> SYSTEM ADMINISTRATION PORTAL (RESTRICTED)
+            </div>
+            <div class="flex space-x-4 text-xs">
+                <span class="flex items-center"><span class="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></span> Server: ONLINE</span>
+                <span class="flex items-center"><span class="w-2 h-2 rounded-full bg-green-500 mr-2"></span> DB: CONNECTED</span>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 py-8 flex flex-col lg:flex-row gap-8">
+            <!-- Backend Sidebar -->
+            <div class="lg:w-1/4 space-y-2">
+                <div class="bg-backend-800 p-4 rounded border border-backend-700 hover:border-red-500/50 cursor-pointer transition text-white font-bold"><i class="fas fa-home w-6"></i> Dashboard Overview</div>
+                <div class="bg-backend-900 p-4 rounded border border-backend-700 hover:border-gray-500 cursor-pointer transition"><i class="fas fa-users w-6"></i> User / Investor Mgmt</div>
+                <div class="bg-backend-900 p-4 rounded border border-backend-700 hover:border-gray-500 cursor-pointer transition"><i class="fas fa-building w-6"></i> Property Database</div>
+                <div class="bg-backend-900 p-4 rounded border border-backend-700 hover:border-gray-500 cursor-pointer transition"><i class="fas fa-file-invoice-dollar w-6"></i> Financial Ledgers</div>
+                <div class="bg-backend-900 p-4 rounded border border-backend-700 hover:border-gray-500 cursor-pointer transition"><i class="fas fa-terminal w-6"></i> Server Logs</div>
+            </div>
+
+            <!-- Backend Main Content -->
+            <div class="lg:w-3/4 space-y-6">
+                <!-- System Stats -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-backend-800 p-5 rounded border border-backend-700 border-l-4 border-l-blue-500">
+                        <p class="text-gray-500 text-xs mb-1 uppercase tracking-wider">Total Assets Managed</p>
+                        <p class="text-2xl font-bold text-white">$14,250,000</p>
+                    </div>
+                    <div class="bg-backend-800 p-5 rounded border border-backend-700 border-l-4 border-l-green-500">
+                        <p class="text-gray-500 text-xs mb-1 uppercase tracking-wider">Cleared Investors</p>
+                        <p class="text-2xl font-bold text-white">42 Active</p>
+                    </div>
+                    <div class="bg-backend-800 p-5 rounded border border-backend-700 border-l-4 border-l-red-500">
+                        <p class="text-gray-500 text-xs mb-1 uppercase tracking-wider">Pending Approvals</p>
+                        <p class="text-2xl font-bold text-white">3 Action Required</p>
+                    </div>
+                </div>
+
+                <!-- Live System Console -->
+                <div class="bg-backend-800 rounded border border-backend-700 overflow-hidden">
+                    <div class="bg-backend-700 px-4 py-2 text-xs font-bold tracking-wider uppercase flex justify-between">
+                        <span>Live Access Logs</span>
+                        <span>Terminal v2.4.1</span>
+                    </div>
+                    <div class="p-4 space-y-2 text-xs font-mono h-48 overflow-y-auto">
+                        <p><span class="text-gray-500">[14:02:11]</span> <span class="text-blue-400">INFO:</span> User session initiated (IP: 192.168.1.45)</p>
+                        <p><span class="text-gray-500">[14:02:15]</span> <span class="text-blue-400">INFO:</span> API GET /properties/list - 200 OK</p>
+                        <p><span class="text-gray-500">[14:03:01]</span> <span class="text-yellow-400">WARN:</span> Multiple failed login attempts (IP: 45.33.22.11)</p>
+                        <p><span class="text-gray-500">[14:05:22]</span> <span class="text-green-400">SUCCESS:</span> Database backup completed automatically.</p>
+                        <p><span class="text-gray-500">[14:07:14]</span> <span class="text-blue-400">INFO:</span> Property ID 2 data accessed by Admin.</p>
+                        <p class="text-red-400 font-bold"><span class="text-gray-500">[14:10:00]</span> ALERT: Payment pending for investor [SHELLY AND JASS] on Prop_ID_2.</p>
+                        <p class="animate-pulse">_</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Property Modal Container -->
+    <div id="property-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 opacity-0 transition-opacity duration-300 bg-black/60 backdrop-blur-sm">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto transform scale-95 transition-transform duration-300 relative">
+            <div id="modal-content">
+                <!-- Modal content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Logic -->
+    <script>
+        // Property Database
+        const properties = [
+            {
+                id: 1,
+                title: "Riverfront Executive Estate",
+                location: "Little Rock, AR",
+                price: "$450,000",
+                image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+                beds: 4,
+                baths: 3,
+                sqft: "3,200",
+                type: "standard"
+            },
+            {
+                id: 2,
+                title: "High-Yield Duplex Investment",
+                location: "Fayetteville, AR",
+                price: "$98,500", // Main property worth up to $100k
+                image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+                beds: 2,
+                baths: 2,
+                sqft: "1,450",
+                type: "main" // This triggers the detailed investor/video view
+            },
+            {
+                id: 3,
+                title: "Commercial Development Plot",
+                location: "Bentonville, AR",
+                price: "$825,000",
+                image: "https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+                beds: 0,
+                baths: 0,
+                sqft: "12,000",
+                type: "standard"
             }
-            
-            paidAmount = parseFloat(currentAmount) || 0;
-            recipientCashtag = cashtag;
-            paymentNote = document.getElementById("note-input").value.trim() || "For rent";
-            
-            showSendingSpinner();
+        ];
+
+        // Render Property Grid
+        function renderProperties() {
+            const grid = document.getElementById('property-grid');
+            let html = '';
+
+            properties.forEach(prop => {
+                html += `
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-300 group flex flex-col">
+                        <div class="relative h-56 overflow-hidden bg-gray-200">
+                            <img src="${prop.image}" alt="${prop.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded text-sm font-bold text-corporate-900 shadow">
+                                ${prop.price}
+                            </div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <p class="text-xs font-semibold text-corporate-gold uppercase tracking-wider mb-1"><i class="fas fa-map-marker-alt mr-1"></i> ${prop.location}</p>
+                            <h4 class="text-xl font-bold text-corporate-900 mb-4">${prop.title}</h4>
+                            <div class="flex justify-between text-sm text-gray-500 mb-6 border-t border-b border-gray-100 py-3">
+                                <span><i class="fas fa-bed mr-1"></i> ${prop.beds} Beds</span>
+                                <span><i class="fas fa-bath mr-1"></i> ${prop.baths} Baths</span>
+                                <span><i class="fas fa-ruler-combined mr-1"></i> ${prop.sqft} sqft</span>
+                            </div>
+                            <div class="mt-auto">
+                                <button onclick="openModal(${prop.id})" class="w-full bg-gray-50 hover:bg-corporate-900 text-corporate-900 hover:text-white border border-gray-200 hover:border-transparent font-semibold py-3 px-4 rounded transition-colors duration-200 flex justify-center items-center">
+                                    View Property Details <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            grid.innerHTML = html;
         }
-        
-        function showSendingSpinner() {
-            const display = document.getElementById("spinner-cashtag-display");
-            display.innerHTML = recipientCashtag.startsWith('$') ? recipientCashtag : '$' + recipientCashtag;
+
+        // Modal Logic
+        function openModal(id) {
+            const prop = properties.find(p => p.id === id);
+            const modal = document.getElementById('property-modal');
+            const content = document.getElementById('modal-content');
+            const modalInner = modal.querySelector('div');
+
+            let html = `
+                <div class="relative h-72">
+                    <img src="${prop.image}" class="w-full h-full object-cover rounded-t-xl" alt="Property">
+                    <button onclick="closeModal()" class="absolute top-4 right-4 bg-black/50 hover:bg-black/80 text-white rounded-full w-10 h-10 flex items-center justify-center transition-colors shadow-lg z-10 backdrop-blur">
+                        <i class="fas fa-times text-lg"></i>
+                    </button>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-6 left-8 text-white">
+                        <span class="bg-corporate-gold text-white text-xs font-bold uppercase px-3 py-1 rounded shadow-sm mb-3 inline-block">Active Listing</span>
+                        <h2 class="text-4xl font-extrabold text-white tracking-tight drop-shadow-md">${prop.title}</h2>
+                        <p class="text-gray-200 mt-2 font-medium text-lg"><i class="fas fa-map-marker-alt text-corporate-gold mr-2"></i>${prop.location}</p>
+                    </div>
+                </div>
+                <div class="p-8">
+                    <div class="flex justify-between items-center mb-8 bg-gray-50 p-6 rounded-lg border border-gray-100">
+                        <div>
+                            <p class="text-sm text-gray-500 uppercase tracking-wider font-semibold">Offering Price</p>
+                            <p class="text-4xl font-bold text-corporate-900">${prop.price}</p>
+                        </div>
+                        <div class="flex space-x-6 text-center">
+                            <div>
+                                <p class="text-xl font-bold text-gray-900">${prop.beds}</p>
+                                <p class="text-xs text-gray-500 uppercase">Beds</p>
+                            </div>
+                            <div class="w-px bg-gray-300"></div>
+                            <div>
+                                <p class="text-xl font-bold text-gray-900">${prop.baths}</p>
+                                <p class="text-xs text-gray-500 uppercase">Baths</p>
+                            </div>
+                            <div class="w-px bg-gray-300"></div>
+                            <div>
+                                <p class="text-xl font-bold text-gray-900">${prop.sqft}</p>
+                                <p class="text-xs text-gray-500 uppercase">Sq. Ft.</p>
+                            </div>
+                        </div>
+                    </div>
+            `;
+
+            // Render Full Info for Main Property
+            if (prop.type === 'main') {
+                html += `
+                    <!-- Investor Roster -->
+                    <div class="mt-8 border-t border-gray-200 pt-8">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-2xl font-bold text-corporate-900">Investor Ledger & Profit Distribution</h3>
+                            <span class="text-sm bg-red-100 text-red-700 px-3 py-1 rounded font-bold border border-red-200"><i class="fas fa-lock mr-1"></i> Admin View</span>
+                        </div>
+                        <div class="overflow-hidden bg-white rounded-lg shadow border border-gray-200">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-800 text-white">
+                                    <tr>
+                                        <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Investor Name</th>
+                                        <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Profit Allocation</th>
+                                        <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Payment Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <!-- HIGHLY VISIBLE PENDING ROW FOR SHELLY AND JASS -->
+                                    <tr class="bg-red-50/50 hover:bg-red-50 transition border-l-4 border-l-red-500">
+                                        <td class="px-6 py-6 whitespace-nowrap text-base font-extrabold text-gray-900 uppercase">SHELLY AND JASS</td>
+                                        <td class="px-6 py-6 whitespace-nowrap text-base font-bold text-gray-800">$31,000.00</td>
+                                        <td class="px-6 py-6 whitespace-nowrap">
+                                            <!-- Extremely visible pending badge -->
+                                            <span class="inline-flex items-center px-4 py-2 rounded-md text-sm font-black bg-red-600 text-white shadow-md animate-pulse border-2 border-red-800 uppercase tracking-wide">
+                                                <i class="fas fa-exclamation-triangle mr-2"></i> PENDING PAYMENT
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <!-- Standard Paid Rows -->
+                                    <tr class="hover:bg-gray-50 transition">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Marcus Sterling LLC</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">$14,500.00</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="px-3 py-1 inline-flex text-xs leading-5 font-bold rounded bg-green-100 text-green-800 border border-green-200"><i class="fas fa-check-circle mr-1.5 mt-0.5"></i> Paid</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="bg-gray-50 hover:bg-gray-100 transition">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">David R. Montgomery</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">$22,150.00</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="px-3 py-1 inline-flex text-xs leading-5 font-bold rounded bg-green-100 text-green-800 border border-green-200"><i class="fas fa-check-circle mr-1.5 mt-0.5"></i> Paid</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50 transition">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Evelyn Carter</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">$8,400.00</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="px-3 py-1 inline-flex text-xs leading-5 font-bold rounded bg-green-100 text-green-800 border border-green-200"><i class="fas fa-check-circle mr-1.5 mt-0.5"></i> Paid</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Property Review Video -->
+                    <div class="mt-10 border-t border-gray-200 pt-8">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-2xl font-bold text-corporate-900">Property Review Video</h3>
+                            <span class="bg-corporate-900 text-white text-xs px-2 py-1 rounded font-mono">ENCRYPTED STREAM</span>
+                        </div>
+                        <p class="text-gray-600 mb-6 text-sm">Review the site walkthrough and assessment. Confidential document for cleared investors only.</p>
+                        
+                        <div class="rounded-xl overflow-hidden bg-black shadow-lg border border-gray-300 relative group">
+                            <!-- raw=1 forces direct HTML5 streaming from Dropbox -->
+                            <video controls class="w-full h-auto aspect-video outline-none" poster="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80">
+                                <source src="https://www.dropbox.com/scl/fi/zavdtmz2oxo1abeblmesi/Video-May-20-2026-3-35-55-PM.mov?rlkey=lrkcv6ib47qjvx65zsrt1zhzf&st=hhb1d5t4&raw=1" type="video/mp4">
+                                Your browser does not support the video tag. Please update your browser.
+                            </video>
+                        </div>
+                    </div>
+                `;
+            } else {
+                // Render Limited Info for Other Properties
+                html += `
+                    <div class="mt-8 bg-corporate-50 border border-corporate-200 rounded-lg p-8 flex items-start bg-blue-50/50">
+                        <div class="bg-white p-4 rounded-full shadow-md mr-6 border border-gray-100 flex-shrink-0">
+                            <i class="fas fa-lock text-corporate-600 text-3xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-corporate-900 mb-2">Information Restricted</h3>
+                            <p class="text-gray-600 leading-relaxed mb-6">Detailed investor ledgers, profit distributions, and proprietary property review videos are restricted for this listing. Your current tier does not have authorization to view these details.</p>
+                            <button class="bg-corporate-900 text-white px-6 py-3 rounded font-bold hover:bg-corporate-800 transition shadow-md">Request Level 2 Clearance</button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            html += `</div>`;
+            content.innerHTML = html;
             
-            const spinner = document.getElementById("sending-spinner");
-            spinner.classList.remove("hidden");
+            // Show modal with animation
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalInner.classList.remove('scale-95');
+                modalInner.classList.add('scale-100');
+            }, 10);
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('property-modal');
+            const modalInner = modal.querySelector('div');
+            
+            // Stop video if playing upon close
+            const video = document.querySelector('#modal-content video');
+            if(video) video.pause();
+
+            // Animate out
+            modal.classList.add('opacity-0');
+            modalInner.classList.remove('scale-100');
+            modalInner.classList.add('scale-95');
             
             setTimeout(() => {
-                spinner.classList.add("hidden");
-                showCompletionScreen();
-            }, 2500);
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto'; // Restore background scrolling
+            }, 300);
         }
-        
-        function showCompletionScreen() {
-            document.getElementById("completion-payment-to").innerHTML = 
-                `Payment to ${recipientCashtag.startsWith('$') ? recipientCashtag : '$' + recipientCashtag}`;
-            
-            document.getElementById("completion-amount").innerHTML = 
-                '$' + paidAmount.toFixed(2);
-            
-            document.getElementById("completion-for").innerHTML = paymentNote;
-            
-            const now = new Date();
-            let hours = now.getHours();
-            const minutes = now.getMinutes().toString().padStart(2, '0');
-            const ampm = hours >= 12 ? 'PM' : 'AM';
-            hours = hours % 12 || 12;
-            document.getElementById("completion-time").innerHTML = 
-                `Today at ${hours}:${minutes} ${ampm}`;
-            
-            navigateTo("completion-screen");
-        }
-        
-        function completeTransaction() {
-            // Deduct the paid amount and save to localStorage
-            balance = Math.max(0, balance - paidAmount);
-            localStorage.setItem('cashapp_balance', balance.toFixed(2));
-            
-            updateBalances();
-            
-            currentAmount = "0";
-            document.getElementById("payment-amount-display").innerHTML = "$0";
-            document.getElementById("cashtag-input").value = "";
-            document.getElementById("note-input").value = "";
-            
-            navigateTo("landing-screen");
-        }
-        
-        function downloadWebReceipt() {
-            const completionScreen = document.getElementById("completion-screen");
-            if (!completionScreen) return;
-            
-            html2canvas(completionScreen, {
-                scale: 2,
-                backgroundColor: "#111111",
-                logging: false
-            }).then(canvas => {
-                const link = document.createElement("a");
-                link.download = `cashapp-receipt-${paidAmount.toFixed(2)}.png`;
-                link.href = canvas.toDataURL("image/png");
-                link.click();
-            });
-        }
-        
-        function fakeAction() {
-            // Reset balance functionality for testing
-            if (confirm("Reset balance to $80.45?")) {
-                balance = 80.45;
-                localStorage.setItem('cashapp_balance', balance.toFixed(2));
-                updateBalances();
-            }
-        }
-        
-        function fakeEnableContacts() {
-            alert("Contacts enabled successfully");
-        }
-        
-        document.addEventListener("keydown", function(e) {
-            if (document.getElementById("payment-screen").classList.contains("active")) {
-                if (e.key >= "0" && e.key <= "9") addDigit(e.key);
-                if (e.key === ".") addDigit(".");
-                if (e.key === "Backspace") deleteDigit();
+
+        // Close modal when clicking outside of it
+        document.getElementById('property-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
             }
         });
-        
-        window.onload = () => {
-            updateBalances();
-            console.log("%c✅ Exact replica landing page loaded.", "color:#00D632; font-weight:600");
-        };
+
+        // Initialize application
+        renderProperties();
     </script>
 </body>
 </html>
